@@ -4,20 +4,27 @@ import { firstValueFrom } from 'rxjs';
 import { USERS_CLIENT } from 'src/common/constants';
 import { USER_PATTERN } from 'src/user/patterns';
 import { CreateUserDto } from './dto';
+import { MicroserviceErrorHandler } from 'src/common/utils';
 
 @Injectable()
 export class UserService {
   constructor(@Inject(USERS_CLIENT) private readonly userClient: ClientProxy) {}
 
   async findAll() {
-    return await firstValueFrom(
-      this.userClient.send(USER_PATTERN.FIND_ALL, {}),
+    const users = await firstValueFrom(
+      MicroserviceErrorHandler.handleMicroserviceResponse(
+        this.userClient.send(USER_PATTERN.FIND_ALL, {}),
+      ),
     );
+    return users;
   }
 
   async create(input: CreateUserDto) {
-    return await firstValueFrom(
-      this.userClient.send(USER_PATTERN.CREATE, input),
+    const user = await firstValueFrom(
+      MicroserviceErrorHandler.handleMicroserviceResponse(
+        this.userClient.send(USER_PATTERN.CREATE, input),
+      ),
     );
+    return user;
   }
 }

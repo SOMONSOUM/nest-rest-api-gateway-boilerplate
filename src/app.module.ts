@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { GlobalExceptionFilter } from './common/filters';
 import { ResponseInterceptor } from './common/interceptors';
+import { GlobalExceptionFilter } from './common/filters';
 
 @Module({
   imports: [

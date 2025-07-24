@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { map, Observable } from 'rxjs';
 import { Request } from 'express';
-import { ApiResponse } from '../interfaces';
+import { ApiResponseDto } from '../interfaces';
 
 @Injectable()
 export class ResponseInterceptor<T>
-  implements NestInterceptor<T, ApiResponse<T>>
+  implements NestInterceptor<T, ApiResponseDto<T>>
 {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request: Request = context.switchToHttp().getRequest();
